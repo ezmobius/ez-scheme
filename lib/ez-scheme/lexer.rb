@@ -18,14 +18,6 @@ class LexerError < Exception
   end
 end
 
-if defined?(Rubinius)
-  MatchData.class_eval do
-    def names
-      @regexp.name_table.keys
-    end
-  end
-end
-
 class Lexer
   attr_reader :buf, :pos
   # rules is an array of [regex, type] pairs
