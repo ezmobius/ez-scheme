@@ -12,6 +12,7 @@ class Token
 end
 
 class LexerError < Exception
+  attr_reader :pos
   def initialize(pos)
     @pos = pos
   end
