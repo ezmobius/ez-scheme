@@ -1,3 +1,13 @@
 require 'ez-scheme/interpreter'
 
-interactive_interpreter()
+if file = ARGV[0]
+  interp = ::SchemeInterpreter.new # by default output_stream is $stdout
+  parser = ::Parser.new
+  inp = IO.read(file)
+  parsed = parser.parse(inp)
+  parsed.each do |expr|
+    interp.interpret(expr)
+  end
+else
+  interactive_interpreter()
+end

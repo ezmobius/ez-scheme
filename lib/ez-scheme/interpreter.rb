@@ -12,6 +12,9 @@ class Procedure
   #  
   # Consists of a list of arguments and body (both nested Pairs), together
   # with a link to the environment in which the procedure was defined.
+  
+  attr_reader :args, :body, :env
+  
   def initialize(args, body, env)
     @args = args
     @body = body
@@ -135,8 +138,8 @@ class SchemeInterpreter
       return proc.apply(expand_nested_pairs(args))  
     elsif proc.instance_of?(Procedure)
       if DEBUG
-        puts("~~~~ Applying procedure with args: %s" % proc.params)
-        puts("     and body:\n%s" % expr_repr(proc.body))
+        puts("~~~~ Applying procedure with args: #{proc.args}")
+        puts("     and body:\n#{expr_repr(proc.body)}")
       end
       return _eval_sequence(proc.body,
                             _extend_env_for_procedure(proc.env, 
