@@ -9,7 +9,7 @@ class ParseError < Exception; end
 # Since Scheme code is also data, this parser mimics the (read) procedure
 # and reads source code into Scheme expressions (internal data 
 # representation suitable for further analysis). 
-class Parser
+class SchemeParser
   
   attr_accessor :lexer, :text, :cur_token
 
@@ -260,7 +260,7 @@ end
 #-------------------------------------------------------------------------------
 if __FILE__ == $0
   include Predicates
-  p = Parser.new
+  p = SchemeParser.new
   res = p.parse %Q{
     (define (double num)
         (+ num num))

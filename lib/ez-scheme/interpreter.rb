@@ -207,7 +207,7 @@ def interactive_interpreter()
   # Interactive interpreter 
   
   interp = ::SchemeInterpreter.new # by default output_stream is sys.stdout
-  parser = ::Parser.new
+  parser = ::SchemeParser.new
   puts("Type a Scheme expression or 'quit'")
   
   while true
