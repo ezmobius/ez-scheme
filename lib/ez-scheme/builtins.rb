@@ -90,7 +90,7 @@ def builtin_eqv(args)
   #
   left, right = args[0], args[1]
   
-  if left.instance_of(Pair) and right.instance_of(Pair)
+  if left.instance_of?(Pair) and right.instance_of?(Pair)
     Boolean.new(left.object_id == right.object_id)
   else
     Boolean.new(left == right)
@@ -134,16 +134,21 @@ def builtin_or(args)
 end
 
 def make_comparison_operator_builtin(op)
-    lambda{ |args|
+    Proc.new{ |args|
       a = args[0]
+      res = nil
       for b in args[1..-1]
-        if send(op, a.value, b.value)
+        if a.value.send(op, b.value)
           a = b
         else
-          return Boolean.new(false)
+          break res = Boolean.new(false)
         end
       end
-      Boolean.new(true)
+      if res
+        res
+      else
+        Boolean.new(true)
+      end
     }
 end
 

@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + '/environment'
 require File.dirname(__FILE__) + '/builtins'
 require 'pp'
 
-DEBUG = true
+DEBUG = ENV['DEBUG']
 
 
 class Procedure
@@ -87,7 +87,6 @@ class SchemeInterpreter
     elsif is_begin(expr)
       return _eval_sequence(begin_actions(expr), env)
     elsif is_application(expr)
-      puts "eval apply"
       return _apply(_eval(application_operator(expr), env),
                     _list_of_values(application_operands(expr), env))
     else
@@ -123,14 +122,10 @@ class SchemeInterpreter
   def _apply(proc, args)
     # Standard Scheme apply (SICP 4.1.1)
     #
-    if DEBUG
-      puts("~~~~ Applying procedure #{proc}")
-      puts("     with args #{expr_repr(args)}")
-    end
-    
     if proc.instance_of?(BuiltinProcedure)
       if DEBUG
         puts("~~~~ Applying builtin procedure: #{proc.name}")
+        puts("     with args #{expr_repr(args)}")
       end
       # The '' builtin gets the current output stream as a custom
       # argument
@@ -138,7 +133,7 @@ class SchemeInterpreter
       return proc.apply(expand_nested_pairs(args))  
     elsif proc.instance_of?(Procedure)
       if DEBUG
-        puts("~~~~ Applying procedure with args: #{proc.args}")
+        puts("~~~~ Applying procedure with args: #{expr_repr(proc.args)}")
         puts("     and body:\n#{expr_repr(proc.body)}")
       end
       return _eval_sequence(proc.body,
@@ -201,12 +196,13 @@ def interpret_code(code_str, output_stream=nil)
   for expr in parsed_exprs
     interp.interpret(expr)
   end
+  interp
 end
 
-def interactive_interpreter()
+def interactive_interpreter(interp=nil)
   # Interactive interpreter 
   
-  interp = ::SchemeInterpreter.new # by default output_stream is sys.stdout
+  interp ||= ::SchemeInterpreter.new # by default output_stream is sys.stdout
   parser = ::SchemeParser.new
   puts("Type a Scheme expression or 'quit'")
   

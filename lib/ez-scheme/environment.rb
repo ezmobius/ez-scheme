@@ -30,7 +30,8 @@ class Environment
     elsif ! @parent.nil?
       return @parent.lookup_var(var)
     else
-      raise Unbound.new("unbound variable '#{var}'") 
+      return nil
+      #raise Unbound.new("unbound variable '#{var}'") 
     end           
   end
   

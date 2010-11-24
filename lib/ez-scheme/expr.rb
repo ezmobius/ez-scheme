@@ -111,7 +111,8 @@ module Predicates
     elsif obj.instance_of?(Array)
       obj.map {|o| repr_rec(o) }.join("\n")
     else
-      raise ExprError.new("Unexpected type: #{obj.class}")
+      obj.class.to_s
+      #raise ExprError.new("Unexpected type: #{obj.class}")
     end
   end
   
@@ -408,8 +409,8 @@ module Predicates
     
     bindings = let_bindings(exp)
     while ! bindings.nil?
-        vars.append(bindings.first.first)
-        vals.append(bindings.first.second.first)
+        vars << bindings.first.first
+        vals << bindings.first.second.first
         bindings = bindings.second
     end
     lambda_expr = make_lambda(make_nested_pairs(*vars), let_body(exp))

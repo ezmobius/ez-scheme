@@ -2,7 +2,7 @@ require 'ez-scheme/interpreter'
 
 if file = ARGV[0]
   inp = IO.read(file)
-  interpret_code(inp)
+  interactive_interpreter(interpret_code(inp))
 else
   interactive_interpreter()
 end
