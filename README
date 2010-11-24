@@ -1,0 +1,12 @@
+ez-scheme --------------
+
+This is a simple educational scheme interpreter that runs on ruby
+1.9.* or rubinius. It needs the onig regexp engine for named captures
+used in the lexer.
+
+Source code is easy to read and understand. Plans to add a compiler
+to rubinius bytecode that can run directly on the rbx vm.
+
+Loosely based/ported from bobscheme by Eli Bendersky
+
+released into the public domain
