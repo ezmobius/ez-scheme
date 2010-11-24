@@ -6,7 +6,7 @@ $:.unshift File.join(File.dirname(__FILE__), 'lib')
 
 GEM = 'ez-scheme'
 GEM_NAME = 'ez-scheme'
-GEM_VERSION = '0.0.1'
+GEM_VERSION = '0.0.2'
 AUTHORS = ['Ezra Zygmuntowicz']
 EMAIL = "ez@vmware.com"
 HOMEPAGE = "http://github.com/ezmobius/ez-scheme"
