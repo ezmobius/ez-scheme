@@ -155,18 +155,21 @@ end
 def make_arith_operator_builtin(op)
   lambda{ |args| Number.new(args.map{|a| a.value}.inject(op)) }
 end
-    
+
+def eval_ruby_code
+  lambda{|args| Sstring.new(eval(args[0]).to_s)}
+end
     
 $builtins_map = {
-    'eqv?' =>       lambda{ |args| builtin_eqv(args) },
-    'eq?' =>           lambda{ |args| builtin_eqv(args) },
-    'pair?' =>        lambda{ |args| builtin_pair_p(args) },
-    'zero?' =>         lambda{ |args| builtin_zero_p(args) },
-    'boolean?' =>      lambda{ |args| builtin_boolean_p(args) },
-    'symbol?' =>       lambda{ |args| builtin_symbol_p(args) },
-    'number?' =>       lambda{ |args| builtin_number_p(args) },
-    'null?'   =>       lambda{ |args| builtin_null_p(args) },
-    'cons' =>          lambda{ |args| builtin_cons(args) },
+    'eqv?' =>           lambda{ |args| builtin_eqv(args) },
+    'eq?' =>            lambda{ |args| builtin_eqv(args) },
+    'pair?' =>          lambda{ |args| builtin_pair_p(args) },
+    'zero?' =>          lambda{ |args| builtin_zero_p(args) },
+    'boolean?' =>       lambda{ |args| builtin_boolean_p(args) },
+    'symbol?' =>        lambda{ |args| builtin_symbol_p(args) },
+    'number?' =>        lambda{ |args| builtin_number_p(args) },
+    'null?'   =>        lambda{ |args| builtin_null_p(args) },
+    'cons' =>           lambda{ |args| builtin_cons(args) },
     'list'  =>          lambda{ |args| builtin_list(args) },
     'car'  =>           lambda{ |args| builtin_car(args) },
     'cdr'  =>           lambda{ |args| builtin_cdr(args) },
@@ -180,11 +183,12 @@ $builtins_map = {
     '+'  =>             make_arith_operator_builtin(:+),
     '-'  =>             make_arith_operator_builtin(:-),
     '*'  =>             make_arith_operator_builtin(:*),
-    'quotient' =>      make_arith_operator_builtin(:/),
+    'quotient' =>       make_arith_operator_builtin(:/),
     'modulo'  =>        make_arith_operator_builtin(:%),
     '='  =>             make_comparison_operator_builtin(:==),
     '>='  =>            make_comparison_operator_builtin(:>=),
     '<='  =>            make_comparison_operator_builtin(:<=),
     '>'  =>             make_comparison_operator_builtin(:>),
-    '<'  =>             make_comparison_operator_builtin(:<)
+    '<'  =>             make_comparison_operator_builtin(:<),
+    'rb'  =>            eval_ruby_code
 }

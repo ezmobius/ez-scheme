@@ -60,6 +60,32 @@ class Sym
   
 end
 
+class Sstring
+  
+  attr_reader :value
+  
+  def initialize(value)
+    @value = value.gsub('"', '')
+  end
+  
+  def to_s
+    @value.to_s
+  end
+  
+  def to_str
+    @value.to_str
+  end
+  
+  def ==(other)
+    if Sym === other
+      @value == other.value
+    else
+      @value == other
+    end
+  end
+  
+end
+
 class Boolean
   
   attr_reader :value
@@ -94,7 +120,7 @@ module Predicates
   def repr_rec(obj)
     if obj.nil?
       return '()'
-    elsif [Boolean, Sym, Number].any? { |c| obj.instance_of?(c) }
+    elsif [Boolean, Sym, Number, Sstring].any? { |c| obj.instance_of?(c) }
       return obj.to_s
     elsif obj.instance_of?(Pair) 
       str = '(' + repr_rec(obj.first)
@@ -160,7 +186,7 @@ module Predicates
   # section 4.1.2 of SICP.
   #
   def is_self_evaluating(exp)
-    [Number, Boolean].any?{|c| exp.instance_of?(c)}
+    [Number, Boolean, Sstring].any?{|c| exp.instance_of?(c)}
   end
   
   def is_variable(exp)

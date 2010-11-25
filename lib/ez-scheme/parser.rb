@@ -134,6 +134,8 @@ class SchemeParser
       end
     elsif @cur_token._type == 'ID'
       retval = Sym.new(@cur_token.value)
+    elsif @cur_token._type == 'STRING'
+      retval = Sstring.new(@cur_token.value)
     else
       parse_error("Unexpected token '#{@cur_token.value}'")
     end
@@ -252,6 +254,7 @@ class SchemeLexer < Lexer
           [%r{\(},                     'LPAREN'],
           [%r{\)},                     'RPAREN'],
           [%r{\'},                     'QUOTE'],
+          [%r{\".*?\"},                'STRING']
       ]
       rules
     end
