@@ -10,3 +10,8 @@ to rubinius bytecode that can run directly on the rbx vm.
 Loosely based/ported from bobscheme by Eli Bendersky
 
 released into the public domain
+
+ez-scheme has been updated to use the non-deprecated 'rubygems/package_task' 
+instead of 'rake/gempackagetask'
+
+_Also, Rubinius is used by default if RVM is installed_

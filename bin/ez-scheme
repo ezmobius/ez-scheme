@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require 'ez-scheme/interpreter'
 
 if file = ARGV[0]

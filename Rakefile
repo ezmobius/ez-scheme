@@ -1,14 +1,14 @@
 require 'rubygems'
-require 'rake/gempackagetask'
+require 'rubygems/package_task'
 require 'rake/testtask'
 
 $:.unshift File.join(File.dirname(__FILE__), 'lib')
 
 GEM = 'ez-scheme'
 GEM_NAME = 'ez-scheme'
-GEM_VERSION = '0.0.2'
-AUTHORS = ['Ezra Zygmuntowicz']
-EMAIL = "ez@vmware.com"
+GEM_VERSION = '0.0.3'
+AUTHORS = ['Ezra Zygmuntowicz', 'Tobi Lehman']
+EMAIL = ["ez@vmware.com", "tobi.lehman@gmail.com"]
 HOMEPAGE = "http://github.com/ezmobius/ez-scheme"
 SUMMARY = "Scheme interpreter and bytecode compiler for the rubinius VM"
 
@@ -30,6 +30,6 @@ spec = Gem::Specification.new do |s|
   s.files = %w(Rakefile) + Dir.glob("{lib,bin}/**/*")
 end
 
-Rake::GemPackageTask.new(spec) do |pkg|
+Gem::PackageTask.new(spec) do |pkg|
   pkg.gem_spec = spec
 end
